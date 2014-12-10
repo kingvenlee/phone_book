@@ -7,10 +7,14 @@ typedef struct item {
 	struct item *next;
 } Item;
 
-Item *line; 
+#define NAME_LEN_MAX (32)
+#define PHONE_NUM_LEN_MAX (64)
 
 
-Item *get_info(void);
+//Item *line; 
+
+
+//Item *get_info(void);
 /*
 get_info();
 read_to_memery();
