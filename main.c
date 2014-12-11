@@ -7,18 +7,8 @@
 int main(char argc, char **argv)
 {
 
-	Item *head = NULL;
+	Item *head;
 	Item *new_item;
-	
-/*----------------------*/
-	new_item = malloc(sizeof(Item));
-	
-	memcpy(new_item->name, "wang", NAME_LEN_MAX);
-	memcpy(new_item->phone_num, "33323334", PHONE_NUM_LEN_MAX);
-	
-	new_item->next = NULL;
-/*----------------------*/
-
 
 	if (2 < argc) {
 		printf("Error: too many argcs.\n");
@@ -43,9 +33,9 @@ int main(char argc, char **argv)
 	switch (result) {
 	case 0:
 		printf("start.\n");
-		//new_item = get_input();
-		//head = read_to_mem(PHONE_BOOK);
-		read_to_mem(PHONE_BOOK);
+		new_item = get_input();
+		head = read_to_mem(PHONE_BOOK);
+		//read_to_mem(PHONE_BOOK);
 		if (NULL == head) {
 			printf("head is null!\n");
 		}
@@ -53,9 +43,10 @@ int main(char argc, char **argv)
 		if (NULL == new_item) {
 			printf("new_item is null!\n");
 		}
-		//add_to_list(head, new_item);
-		write_to_file(head, "123");
-		//final();
+		printf("start add_to_list\n");
+		head = add_to_list(head, new_item);
+		write_to_file(head, PHONE_BOOK);
+		//free_all(head);
 		break;
 	/*case 2:
 		get_info();

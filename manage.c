@@ -16,6 +16,7 @@ Item *get_input(void)
 	scanf("%s", &new_line->phone_num);
 	//printf("num-----%s\n", tmp_line->phone_num);
 	return new_line;
+
 }
 
 
@@ -29,7 +30,7 @@ Item *read_to_mem(char *file_name)
 	char ch;
 	int len;
 
-	Item *head = NULL;
+	Item *head;
 	Item *new_item;
 
 	printf("in read_to_mem.\n");
@@ -37,10 +38,11 @@ Item *read_to_mem(char *file_name)
 	fp = fopen(file_name, "r");
 	if (NULL == fp) {
 		printf("Open file error!\n");
-		return;
+		return NULL;
 	}
 
 	printf("start while.\n");
+
 	while ((ch = getc(fp)) != EOF) {
 		
 		memset(buf_name,0,sizeof(buf_name));
@@ -74,6 +76,7 @@ Item *read_to_mem(char *file_name)
 
 	printf("while is over!\n");
 	fclose(fp);
+	printf("fclose\n");
 	return head;
 }
 
@@ -87,8 +90,8 @@ static char *my_strdup(char *src)
 	return dest;
 }
 
-/*
-void add_to_list(Item *head, Item *new_item)
+
+Item *add_to_list(Item *head, Item *new_item)
 {
 	Item *pos;
 	Item *prev = NULL;
@@ -103,12 +106,18 @@ void add_to_list(Item *head, Item *new_item)
 		prev = pos;	
 	}
 	printf("for is over!\n");
-	new_item->next = pos;
-	printf("11\n");
-	prev->next = new_item;
-	printf("22\n");
+
+	if (NULL == prev) {	/*if head == null so pos == null so prev == null*/
+		new_item->next = head;
+		head = new_item;
+	} else {
+		new_item->next = pos;
+		prev->next = new_item;
+	}
+		
+	return head;
 }
-*/
+
 
 void find_info()
 {}
@@ -120,6 +129,21 @@ void del_info()
 void show_info()
 {}
 
+
+void free_all(Item *head)
+{
+	Item *tmp;
+
+	while (head != NULL) {
+		tmp = head;
+		head = head->next;
+		//free(tmp->name);
+		//free(tmp->phone_num);
+		free(tmp);
+	}
+
+}
+
 void write_to_file(Item *head, char *file)
 {
 	Item *pos;
@@ -127,6 +151,7 @@ void write_to_file(Item *head, char *file)
 	fp = fopen(file, "w+");
 	if (NULL == fp)  {
 		printf("error to open file\n");
+		return;
 	}
 	for (pos = head; pos != NULL; pos = pos->next) {
 		
