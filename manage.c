@@ -30,8 +30,12 @@ Item *read_to_mem(char *file_name)
 	char ch;
 	int len;
 
-	Item *head;
+	Item *head = NULL;
+	Item *prev = NULL;
+	
 	Item *new_item;
+
+	
 
 	printf("in read_to_mem.\n");
 	printf("filename = %s\n",file_name);
@@ -51,7 +55,8 @@ Item *read_to_mem(char *file_name)
 		do {
 			buf_name[len] = ch;
 			len++;
-		} while ((ch = getc(fp)) != ':');
+			ch = getc(fp);
+		} while ((ch != ':') && (ch != EOF));
 		buf_name[len] = '\0';
 
 		ch = getc(fp);/*to ignore ':'*/
@@ -59,23 +64,38 @@ Item *read_to_mem(char *file_name)
 		do {
 			buf_num[len] = ch;
 			len++;
-		} while ((ch = getc(fp)) != '\n');
+			ch = getc(fp);
+		} while ((ch != '\n') && (ch != EOF));
 		buf_num[len] = '\0';
 		
 		new_item = malloc(sizeof(Item));
 		memcpy(new_item->name, buf_name, NAME_LEN_MAX);
 		memcpy(new_item->phone_num, buf_num, PHONE_NUM_LEN_MAX);
-		//printf("name----%s\n",new_item->name);
-		//printf("num----%s\n",new_item->phone_num);
-		new_item->next = head;
-		head = new_item;
-		printf("name----%s\n",head->name);
-		printf("num----%s\n",head->phone_num);		
+		new_item->next = NULL;
+
+		printf("new_item->name:%s\n",new_item->name);
+		printf("new_item->phone_num:%s\n",new_item->phone_num);
+
+		if (NULL == prev) {
+			prev = new_item;
+			head = new_item;
+		} else {
+			prev->next = new_item;
+			//new_item->next = NULL;
+			prev = new_item;
+		}
 		
 	}
+	
+	printf("\nhead->name----%s\n",head->name);
+	printf("hend->phone_num----%s\n",head->phone_num);
+
+	printf("\ntail->name----%s\n",new_item->name);
+	printf("tail->phone_num----%s\n\n",new_item->phone_num);	
 
 	printf("while is over!\n");
 	fclose(fp);
+	fp = NULL;
 	printf("fclose\n");
 	return head;
 }
@@ -91,31 +111,30 @@ static char *my_strdup(char *src)
 }
 
 
-Item *add_to_list(Item *head, Item *new_item)
+void add_to_list(Item **head, Item **new_item)
 {
-	Item *pos;
-	Item *prev = NULL;
+	Item *node;
+	Item *temp;
+	Item *new_one;
 
-	printf("start for.\n");
-	printf("new_item-name is:%s\n", new_item->name);
-	printf("head-name is:%s\n", head->name);
-	for (pos = head; pos != NULL; pos = pos->next) {
-		if (0 <= strcmp(pos->name, new_item->name)) {
-			break;	
-		}
-		prev = pos;	
-	}
-	printf("for is over!\n");
+	new_one = *new_item;
+	node = *head;
+	temp = node;
+	
+	printf("new_item-name is:%s\n", new_one->name);
+	printf("head-name is:%s\n", node->name);
 
-	if (NULL == prev) {	/*if head == null so pos == null so prev == null*/
-		new_item->next = head;
-		head = new_item;
+	if (NULL == node) {
+		printf("node == NULL\n");
+		temp = new_one;	
 	} else {
-		new_item->next = pos;
-		prev->next = new_item;
+		while(node->next != NULL) {
+			node = node->next;
+		}
+		node->next = new_one;
 	}
-		
-	return head;
+	*head = temp;
+	printf("head-name is:%s\n", node->name);
 }
 
 

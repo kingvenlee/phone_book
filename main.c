@@ -44,8 +44,8 @@ int main(char argc, char **argv)
 			printf("new_item is null!\n");
 		}
 		printf("start add_to_list\n");
-		head = add_to_list(head, new_item);
-		write_to_file(head, PHONE_BOOK);
+		//add_to_list(&head, &new_item);
+		write_to_file(head, "123");
 		//free_all(head);
 		break;
 	/*case 2:
