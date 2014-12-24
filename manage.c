@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "manage.h"
-
+#include <string.h>
 
 
 Item *get_input(void)
@@ -11,10 +11,8 @@ Item *get_input(void)
 	new_line->next = NULL;
 	printf("Name:");
 	scanf("%s", new_line->name);
-	//printf("name------%s\n", tmp_line->name);
 	printf("Phone num:");
 	scanf("%s", &new_line->phone_num);
-	//printf("num-----%s\n", tmp_line->phone_num);
 	return new_line;
 
 }
@@ -25,78 +23,78 @@ Item *get_input(void)
 Item *read_to_mem(char *file_name)
 {	
 	FILE *fp;
-	char buf_name[NAME_LEN_MAX];
-	char buf_num[PHONE_NUM_LEN_MAX];
+	char buf_name[NAME_LEN_MAX] = {0};
+	char buf_num[PHONE_NUM_LEN_MAX] = {0};
 	char ch;
 	int len;
-
+	int file_size = 0;
 	Item *head = NULL;
 	Item *prev = NULL;
 	
-	Item *new_item;
-
+	Item *new_item = NULL;
 	
-
-	printf("in read_to_mem.\n");
-	printf("filename = %s\n",file_name);
 	fp = fopen(file_name, "r");
 	if (NULL == fp) {
 		printf("Open file error!\n");
 		return NULL;
 	}
-
-	printf("start while.\n");
+	
+	
+	int state = 0;
+	len = 0;
 
 	while ((ch = getc(fp)) != EOF) {
 		
-		memset(buf_name,0,sizeof(buf_name));
-		memset(buf_num,0,sizeof(buf_name));
-		len = 0;
-		do {
+		switch(state) {
+		case 0:
 			buf_name[len] = ch;
 			len++;
-			ch = getc(fp);
-		} while ((ch != ':') && (ch != EOF));
-		buf_name[len] = '\0';
-
-		ch = getc(fp);/*to ignore ':'*/
-		len = 0;
-		do {
+			if (':' == ch) {
+				state = 1;
+				buf_name[len-1] = '\0';
+				len = 0;
+			}
+			break;
+		case 1:
 			buf_num[len] = ch;
 			len++;
-			ch = getc(fp);
-		} while ((ch != '\n') && (ch != EOF));
-		buf_num[len] = '\0';
-		
-		new_item = malloc(sizeof(Item));
-		memcpy(new_item->name, buf_name, NAME_LEN_MAX);
-		memcpy(new_item->phone_num, buf_num, PHONE_NUM_LEN_MAX);
-		new_item->next = NULL;
-
-		printf("new_item->name:%s\n",new_item->name);
-		printf("new_item->phone_num:%s\n",new_item->phone_num);
-
-		if (NULL == prev) {
-			prev = new_item;
-			head = new_item;
-		} else {
-			prev->next = new_item;
-			//new_item->next = NULL;
-			prev = new_item;
+			if ('\n' == ch) {
+				state = 0;
+				buf_num[len-1] = '\0';
+				len = 0;
+				new_item = NULL;
+				new_item = (Item *)malloc(sizeof(Item));
+				if (NULL == new_item) {
+					printf("Memory error\n");
+					exit(2);
+				}
+			
+				int i = 0;
+				for (i = 0; i < NAME_LEN_MAX; i++) {
+					new_item->name[i] = buf_name[i];
+				}
+				
+				
+				for (i = 0; i < PHONE_NUM_LEN_MAX; i++) {
+					new_item->phone_num[i] = buf_num[i];
+				}
+				
+				if (NULL == prev) {
+					prev = new_item;
+					head = new_item;
+				} else {
+					prev->next = new_item;
+					//new_item->next = NULL;
+					prev = new_item;
+				}
+			}
+			break;
+		default:break;
 		}
-		
-	}
-	
-	printf("\nhead->name----%s\n",head->name);
-	printf("hend->phone_num----%s\n",head->phone_num);
-
-	printf("\ntail->name----%s\n",new_item->name);
-	printf("tail->phone_num----%s\n\n",new_item->phone_num);	
-
-	printf("while is over!\n");
+	}	
 	fclose(fp);
 	fp = NULL;
-	printf("fclose\n");
+	
 	return head;
 }
 
@@ -165,21 +163,19 @@ void free_all(Item *head)
 
 void write_to_file(Item *head, char *file)
 {
+	
+	FILE *f;
 	Item *pos;
-	FILE *fp;
-	fp = fopen(file, "w+");
-	if (NULL == fp)  {
+	f = fopen(file, "w+");
+
+	if (NULL == f)  {
 		printf("error to open file\n");
 		return;
 	}
 	for (pos = head; pos != NULL; pos = pos->next) {
-		
-		//printf("name is: %s\n", pos->name);
-		//printf("num is: %s\n", pos->phone_num);
-
-		fprintf(fp, "%s:%s\n", pos->name, pos->phone_num);
+		fprintf(f, "%s:%s\n", pos->name, pos->phone_num);
 	}
-	fclose(fp);
+	fclose(f);
 
 }
 void finish()

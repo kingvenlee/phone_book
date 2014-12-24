@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "manage.h"
-
+#include <string.h>
 
 #define PHONE_BOOK "phone_book"
 
@@ -20,20 +20,19 @@ int main(char argc, char **argv)
 	}
 	
 	int result = 0;
-	if (!memcmp(argv[1],"add"))
+	if (0 == memcmp(argv[1],"add",3))
 		result = 1;
-	else if (!memcmp(argv[1],"del"))
+	else if (0 == memcmp(argv[1],"del",4))
 		result = 2;
-	else if (!memcmp(argv[1],"find"))
+	else if (0 == memcmp(argv[1],"find",4))
 		result = 3;
-	else if (!memcmp(argv[1],"show"))
+	else if (0 == memcmp(argv[1],"show",4))
 		result = 4;
-
-	printf("result = %d\n",result);
+	
 	switch (result) {
-	case 0:
-		printf("start.\n");
-		new_item = get_input();
+	case 0:break;
+	case 1:
+		//new_item = get_input();
 		head = read_to_mem(PHONE_BOOK);
 		//read_to_mem(PHONE_BOOK);
 		if (NULL == head) {
@@ -43,7 +42,8 @@ int main(char argc, char **argv)
 		if (NULL == new_item) {
 			printf("new_item is null!\n");
 		}
-		printf("start add_to_list\n");
+		
+		
 		//add_to_list(&head, &new_item);
 		write_to_file(head, "123");
 		//free_all(head);

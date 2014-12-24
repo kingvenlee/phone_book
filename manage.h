@@ -1,14 +1,17 @@
 #ifndef PHONE_BOOK_MANAGE_DEFINE
 #define PHONE_BOOK_MANAGE_DEFINE
 
+#define NAME_LEN_MAX (32)
+#define PHONE_NUM_LEN_MAX (64)
+
+
 typedef struct item {
-	char name[64];
-	char phone_num[32];
+	char name[NAME_LEN_MAX];
+	char phone_num[PHONE_NUM_LEN_MAX];
 	struct item *next;
 } Item;
 
-#define NAME_LEN_MAX (32)
-#define PHONE_NUM_LEN_MAX (64)
+
 
 
 //Item *line; 
