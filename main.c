@@ -32,7 +32,9 @@ int main(char argc, char **argv)
 	switch (result) {
 	case 0:break;
 	case 1:
-		//new_item = get_input();
+		new_item = get_input();
+		//printf("new_item->name = %s\n", new_item->name);
+		//printf("new_item->phone_num = %s\n", new_item->phone_num);
 		head = read_to_mem(PHONE_BOOK);
 		//read_to_mem(PHONE_BOOK);
 		if (NULL == head) {
@@ -44,8 +46,8 @@ int main(char argc, char **argv)
 		}
 		
 		
-		//add_to_list(&head, &new_item);
-		write_to_file(head, "123");
+		add_to_list(&head, &new_item);
+		write_to_file(head, PHONE_BOOK);
 		//free_all(head);
 		break;
 	/*case 2:

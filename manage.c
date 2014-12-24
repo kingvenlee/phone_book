@@ -7,12 +7,13 @@
 Item *get_input(void)
 {
 	Item *new_line = NULL;
-	new_line = malloc(sizeof(Item));
+	new_line = (Item *)malloc(sizeof(Item));
 	new_line->next = NULL;
 	printf("Name:");
 	scanf("%s", new_line->name);
 	printf("Phone num:");
-	scanf("%s", &new_line->phone_num);
+	scanf("%s", new_line->phone_num);
+	
 	return new_line;
 
 }
@@ -119,9 +120,6 @@ void add_to_list(Item **head, Item **new_item)
 	node = *head;
 	temp = node;
 	
-	printf("new_item-name is:%s\n", new_one->name);
-	printf("head-name is:%s\n", node->name);
-
 	if (NULL == node) {
 		printf("node == NULL\n");
 		temp = new_one;	
@@ -132,7 +130,6 @@ void add_to_list(Item **head, Item **new_item)
 		node->next = new_one;
 	}
 	*head = temp;
-	printf("head-name is:%s\n", node->name);
 }
 
 
