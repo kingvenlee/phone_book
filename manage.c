@@ -19,8 +19,6 @@ Item *get_input(void)
 }
 
 
-
-
 Item *read_to_mem(char *file_name)
 {	
 	FILE *fp;
@@ -36,7 +34,6 @@ Item *read_to_mem(char *file_name)
 	
 	fp = fopen(file_name, "r");
 	if (NULL == fp) {
-		printf("Open file error!\n");
 		return NULL;
 	}
 	
@@ -110,26 +107,19 @@ static char *my_strdup(char *src)
 }
 
 
-void add_to_list(Item **head, Item **new_item)
+void add_to_list(Item *head, Item *new_item)
 {
-	Item *node;
 	Item *temp;
-	Item *new_one;
-
-	new_one = *new_item;
-	node = *head;
-	temp = node;
 	
-	if (NULL == node) {
-		printf("node == NULL\n");
-		temp = new_one;	
+	if (NULL == head) {
+		temp = new_item;	
 	} else {
-		while(node->next != NULL) {
-			node = node->next;
+		while(head->next != NULL) {
+			head = head->next;
 		}
-		node->next = new_one;
+		head->next = new_item;
 	}
-	*head = temp;
+	head = temp;
 }
 
 
@@ -147,12 +137,10 @@ void show_info()
 void free_all(Item *head)
 {
 	Item *tmp;
-
+	
 	while (head != NULL) {
 		tmp = head;
 		head = head->next;
-		//free(tmp->name);
-		//free(tmp->phone_num);
 		free(tmp);
 	}
 
