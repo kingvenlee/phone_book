@@ -52,11 +52,11 @@ int main(char argc, char **argv)
 		break;
 	/*
 	case 3:
-		get_info();
-		read_to_mem();
+		
+		head = read_to_mem(PHONE_BOOK);
 		find_info();
-		show_info();
-		finish();
+		
+		
 		break;
 	case 4:
 		get_info();

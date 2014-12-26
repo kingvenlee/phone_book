@@ -24,12 +24,12 @@ Item *del_form_list(Item *head, char *del_value)
 				prev->next = head->next;
 				head->next = NULL;
 				head = prev;
-				//free(temp);
+				free(temp);
 				
 			} else {
 				head = head->next;
 				temp->next = NULL;
-				//free(temp);
+				free(temp);
 			}
 
 			return head;
