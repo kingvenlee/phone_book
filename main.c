@@ -10,6 +10,8 @@ int main(char argc, char **argv)
 	Item *head;
 	Item *new_item;
 
+	char del_value[PHONE_NUM_LEN_MAX] = {0};
+	
 	if (2 < argc) {
 		printf("Error: too many argcs.\n");
 		return;
@@ -38,14 +40,15 @@ int main(char argc, char **argv)
 		write_to_file(head, PHONE_BOOK);
 		free_all(head);
 		break;
-	/*case 2:
-		get_info();
-		read_to_mem();
-		find_info();
-		del_info();
-		write_to_file();
-		finish();
+	case 2:
+		printf("Input the name or phonenum you want to delete:\n");
+		scanf("%s",&del_value);
+		head = read_to_mem(PHONE_BOOK);
+		del_form_list(head, del_value);
+		write_to_file(head, PHONE_BOOK);		
+		free_all(head);
 		break;
+	/*
 	case 3:
 		get_info();
 		read_to_mem();

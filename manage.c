@@ -4,6 +4,38 @@
 #include <string.h>
 
 
+void del_form_list(Item *head, char *del_value)
+{
+	Item *prev = NULL;
+	Item *temp = NULL;
+	Item *old_head;
+	old_head = head;
+	
+	if (NULL == head) {
+		printf("sorry! phone book is empty!\n");
+	}
+	while (head != NULL) {
+		temp = head;
+		if (0 == strcmp(head->name, del_value) || 0 == strcmp(head->phone_num, del_value)) {
+			printf("ok!, %s is deleted.\n", del_value);
+			if (NULL != prev) {
+				prev->next = head->next;
+				head->next = NULL;
+				free(temp);
+				break;
+			}
+		} 
+		prev = head;
+		head = head->next;
+	}
+	if (NULL == head) {
+		printf("Cant't find what you want!!\n");
+	}
+	head = old_head;
+
+}
+
+
 Item *get_input(void)
 {
 	Item *new_line = NULL;
