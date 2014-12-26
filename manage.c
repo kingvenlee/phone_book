@@ -4,7 +4,7 @@
 #include <string.h>
 
 
-void del_form_list(Item *head, char *del_value)
+Item *del_form_list(Item *head, char *del_value)
 {
 	Item *prev = NULL;
 	Item *temp = NULL;
@@ -13,17 +13,26 @@ void del_form_list(Item *head, char *del_value)
 	
 	if (NULL == head) {
 		printf("sorry! phone book is empty!\n");
+		return head;
 	}
 	while (head != NULL) {
 		temp = head;
 		if (0 == strcmp(head->name, del_value) || 0 == strcmp(head->phone_num, del_value)) {
-			printf("ok!, %s is deleted.\n", del_value);
+			printf("ok!, %s is finded.\n", del_value);
 			if (NULL != prev) {
+				printf("NULL != prev\n");
 				prev->next = head->next;
 				head->next = NULL;
-				free(temp);
-				break;
+				head = prev;
+				//free(temp);
+				
+			} else {
+				head = head->next;
+				temp->next = NULL;
+				//free(temp);
 			}
+
+			return head;
 		} 
 		prev = head;
 		head = head->next;
@@ -32,6 +41,7 @@ void del_form_list(Item *head, char *del_value)
 		printf("Cant't find what you want!!\n");
 	}
 	head = old_head;
+	return head;
 
 }
 
@@ -142,26 +152,24 @@ static char *my_strdup(char *src)
 Item *add_to_list(Item *head, Item *new_item)
 {
 	Item *temp;
+	temp = head;
 	
 	if (NULL == head) {
-		temp = new_item;	
+		head = new_item;
+		return head;
 	} else {
 		while(head->next != NULL) {
 			head = head->next;
 		}
 		head->next = new_item;
+		head = temp;
+		return head;
 	}
-	head = temp;
+	
 }
 
 
-void find_info()
-{}
 
-
-
-void del_info()
-{}
 void show_info()
 {}
 

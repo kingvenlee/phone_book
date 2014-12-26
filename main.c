@@ -37,6 +37,8 @@ int main(char argc, char **argv)
 		new_item = get_input();
 		head = read_to_mem(PHONE_BOOK);
 		head = add_to_list(head, new_item);
+		printf("new_item->name = %s\n", new_item->name);
+		printf("head->name = %s\n",head->name);
 		write_to_file(head, PHONE_BOOK);
 		free_all(head);
 		break;
@@ -44,7 +46,7 @@ int main(char argc, char **argv)
 		printf("Input the name or phonenum you want to delete:\n");
 		scanf("%s",&del_value);
 		head = read_to_mem(PHONE_BOOK);
-		del_form_list(head, del_value);
+		head = del_form_list(head, del_value);
 		write_to_file(head, PHONE_BOOK);		
 		free_all(head);
 		break;
