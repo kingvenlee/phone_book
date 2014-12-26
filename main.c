@@ -36,7 +36,7 @@ int main(char argc, char **argv)
 	case 1:
 		new_item = get_input();
 		head = read_to_mem(PHONE_BOOK);
-		add_to_list(head, new_item);
+		head = add_to_list(head, new_item);
 		write_to_file(head, PHONE_BOOK);
 		free_all(head);
 		break;

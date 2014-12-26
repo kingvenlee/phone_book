@@ -139,7 +139,7 @@ static char *my_strdup(char *src)
 }
 
 
-void add_to_list(Item *head, Item *new_item)
+Item *add_to_list(Item *head, Item *new_item)
 {
 	Item *temp;
 	
