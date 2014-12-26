@@ -11,6 +11,7 @@ int main(char argc, char **argv)
 	Item *new_item;
 
 	char del_value[PHONE_NUM_LEN_MAX] = {0};
+	char find_value[PHONE_NUM_LEN_MAX] = {0};
 	
 	if (2 < argc) {
 		printf("Error: too many argcs.\n");
@@ -50,15 +51,14 @@ int main(char argc, char **argv)
 		write_to_file(head, PHONE_BOOK);		
 		free_all(head);
 		break;
-	/*
+	
 	case 3:
-		
+		printf("You want find:\n");
+		scanf("%s",&find_value);
 		head = read_to_mem(PHONE_BOOK);
-		find_info();
-		
-		
+		find_info(head, find_value);	
 		break;
-	case 4:
+	/*case 4:
 		get_info();
 		read_to_mem();
 		show_info();

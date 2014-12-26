@@ -4,6 +4,22 @@
 #include <string.h>
 
 
+void find_info(Item *head, char *find_value)
+{
+	if (NULL == head) {
+		printf("sorry! phone book is empty!\n");
+		return;
+	}
+	
+	while (head != NULL) {
+		if (0 == strcmp(head->name, find_value) || 0 == strcmp(head->phone_num, find_value)) {
+			printf("name is %s\nphone_num is %s\n", head->name, head->phone_num);
+		}
+		head = head->next;
+	}
+	printf("Sorry! can't find it.\n");
+}
+
 Item *del_form_list(Item *head, char *del_value)
 {
 	Item *prev = NULL;
