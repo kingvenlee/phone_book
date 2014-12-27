@@ -58,12 +58,11 @@ int main(char argc, char **argv)
 		head = read_to_mem(PHONE_BOOK);
 		find_info(head, find_value);	
 		break;
-	/*case 4:
-		get_info();
-		read_to_mem();
-		show_info();
-		finish();
-		break;*/
+	case 4:
+		head = read_to_mem(PHONE_BOOK);
+		show_info(head);
+		free_all(head);
+		break;
 	default:
 		break;
 	}

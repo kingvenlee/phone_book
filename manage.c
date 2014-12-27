@@ -186,8 +186,19 @@ Item *add_to_list(Item *head, Item *new_item)
 
 
 
-void show_info()
-{}
+void show_info(Item *head)
+{
+	if (NULL == head) {
+		printf("Phone book is empty!\n");
+		return;
+	}
+	while (head != NULL) {
+		printf("%s:%s\n", head->name, head->phone_num);
+		head = head->next;
+	}
+	
+
+}
 
 
 void free_all(Item *head)
