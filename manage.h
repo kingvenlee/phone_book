@@ -13,21 +13,16 @@ typedef struct item {
 
 
 
+void find_info(Item *head, char *find_value);
+Item *del_form_list(Item *head, char *del_value);
+Item *get_input(void);
+Item *read_to_mem(char *file_name);
+static char *my_strdup(char *src);
+Item *add_to_list(Item *head, Item *new_item);
+void show_info(Item *head);
+void free_all(Item *head);
+void write_to_file(Item *head, char *file);
 
-//Item *line; 
-
-
-//Item *get_info(void);
-/*
-get_info();
-read_to_memery();
-find_info();
-add_list();
-del_info();
-show_info();
-write_to_file();
-finish();
-*/
 
 
 #endif
