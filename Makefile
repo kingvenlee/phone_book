@@ -1,13 +1,10 @@
-objs = main.o manage.o
-all:$(objs)
-	gcc -o  book $(objs)
+EXEC = book
+OBJS = main.o manage.o
 
-main.o:main.c
-	gcc -c -g main.o main.c
-
-manage.o:manage.c
-	gcc -c -g manage.o manage.c
+all: $(EXEC)
+$(EXEC): $(OBJS)
+	gcc -o  $@ $(OBJS)
 
 clean:
-	@rm -rf $(objs)
-	@rm -rf book
+	@rm -rf $(OBJS)
+	@rm -rf $(EXEC)
