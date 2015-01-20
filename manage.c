@@ -48,15 +48,16 @@ Item *del_form_list(Item *head, char *del_value)
 				head->next = NULL;
 				head = prev->next;
 				free(temp);
+				head = old_head;
+				return head;
 				
 			} else {
 				head = head->next;
 				temp->next = NULL;
 				free(temp);
+				return head;
 			}
 			
-			head = old_head;
-			return head;
 		} 
 		prev = head;
 		head = head->next;
