@@ -22,7 +22,7 @@ Item *add_to_list(Item *head, Item *new_item);
 void show_info(Item *head);
 void free_all(Item *head);
 void write_to_file(Item *head, char *file);
-
+void help_info(void);
 
 
 #endif

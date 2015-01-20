@@ -14,11 +14,12 @@ int main(char argc, char **argv)
 	char find_value[PHONE_NUM_LEN_MAX] = {0};
 	
 	if (2 < argc) {
-		printf("Error: too many argcs.\n");
+		printf("Error: too many argcs.\n\n");
+		help_info();
 		return;
 	}
 	if (1 == argc) {
-		printf("Error: too flew argcs.\n");
+		help_info();
 		return;
 	}
 	

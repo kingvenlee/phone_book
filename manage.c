@@ -238,7 +238,19 @@ void write_to_file(Item *head, char *file)
 	fclose(f);
 
 }
-void finish()
-{}
+void help_info(void)
+{
+	printf("usage: book [options]\n");
+	printf("Valid options are:\n");
+	printf("");
+	printf("	add ");
+	printf("		--Add a member to the book.\n\n");
+	printf("	del ");
+	printf("		--Delete a member from the book.\n\n");
+	printf("	find ");
+	printf("		--Find a member from the book and show it.\n\n");
+	printf("	show ");
+	printf("		--Show all members of the book.\n");
+}
 
 
