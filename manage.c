@@ -6,6 +6,8 @@
 
 void find_info(Item *head, char *find_value)
 {
+	int isfind = 0;
+	
 	if (NULL == head) {
 		printf("sorry! phone book is empty!\n");
 		return;
@@ -13,11 +15,16 @@ void find_info(Item *head, char *find_value)
 	
 	while (head != NULL) {
 		if (0 == strcmp(head->name, find_value) || 0 == strcmp(head->phone_num, find_value)) {
-			printf("name is %s\nphone_num is %s\n", head->name, head->phone_num);
+			printf("------------------------------------------------------------------");
+			printf("\nname is:      %s\nphone_num is: %s\n", head->name, head->phone_num);
+			isfind = 1;
 		}
 		head = head->next;
 	}
-	printf("Sorry! can't find it.\n");
+	
+	if (!isfind) {
+		printf("Sorry! can't find it.\n");
+	}
 }
 
 Item *del_form_list(Item *head, char *del_value)
@@ -39,7 +46,7 @@ Item *del_form_list(Item *head, char *del_value)
 				printf("NULL != prev\n");
 				prev->next = head->next;
 				head->next = NULL;
-				head = prev;
+				head = prev->next;
 				free(temp);
 				
 			} else {
@@ -47,7 +54,8 @@ Item *del_form_list(Item *head, char *del_value)
 				temp->next = NULL;
 				free(temp);
 			}
-
+			
+			head = old_head;
 			return head;
 		} 
 		prev = head;
