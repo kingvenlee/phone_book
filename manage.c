@@ -201,10 +201,14 @@ void show_info(Item *head)
 		printf("Phone book is empty!\n");
 		return;
 	}
+	printf("----------------------------------------------------------\n");
 	while (head != NULL) {
-		printf("%s:%s\n", head->name, head->phone_num);
+		
+		printf("| %-20s:		%-25s|\n", head->name, head->phone_num);
+		
 		head = head->next;
 	}
+	printf("----------------------------------------------------------\n");
 	
 
 }
