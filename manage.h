@@ -12,7 +12,7 @@ typedef struct item {
 } Item;
 
 
-
+Item *sort(Item *head);
 void find_info(Item *head, char *find_value);
 Item *del_form_list(Item *head, char *del_value);
 Item *get_input(void);

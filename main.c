@@ -32,6 +32,8 @@ int main(char argc, char **argv)
 		result = 3;
 	else if (0 == memcmp(argv[1],"show",4))
 		result = 4;
+	else if (0 == memcmp(argv[1],"sort",4))
+		result = 5;
 	
 	switch (result) {
 	case 0:break;
@@ -61,6 +63,13 @@ int main(char argc, char **argv)
 		break;
 	case 4:
 		head = read_to_mem(PHONE_BOOK);
+		show_info(head);
+		free_all(head);
+		break;
+	case 5:
+		head = read_to_mem(PHONE_BOOK);
+		head = sort(head);
+		write_to_file(head, PHONE_BOOK);
 		show_info(head);
 		free_all(head);
 		break;

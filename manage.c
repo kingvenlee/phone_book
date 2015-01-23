@@ -3,6 +3,67 @@
 #include "manage.h"
 #include <string.h>
 
+int length_of_list(Item *list)
+{
+	int length = 0;
+	while (list != NULL) {
+		length++;
+		list = list->next;
+	}
+	
+	return length;
+}
+
+static int exchange(Item *a, Item *b)
+{
+	char name_temp[NAME_LEN_MAX] = {0};
+	char phone_num_temp[PHONE_NUM_LEN_MAX] = {0};
+	
+	
+	memcpy(name_temp, a->name, NAME_LEN_MAX);
+	memcpy(a->name, b->name, NAME_LEN_MAX);
+	memcpy(b->name, name_temp, NAME_LEN_MAX);
+	
+	memcpy(phone_num_temp, a->phone_num, PHONE_NUM_LEN_MAX);
+	memcpy(a->phone_num, b->phone_num, PHONE_NUM_LEN_MAX);
+	memcpy(b->phone_num, phone_num_temp, PHONE_NUM_LEN_MAX);
+
+	return 0;
+}
+
+Item *sort(Item *head)
+{
+	int list_length = 0;
+	int i  = 0;
+	int j = 0;
+
+	Item *p = NULL;
+	Item *old_head = NULL;
+
+	list_length = length_of_list(head);
+
+	old_head = head;
+	i = list_length - 1;
+	while (i != 0) {
+		
+		j = i;
+		head = old_head;
+		while (j != 0) {
+			p = head;
+			if (0 < strcmp(p->name, p->next->name)) {
+				exchange(p, p->next);
+			}
+			head = head->next;
+			j--;
+		}
+		i--;
+	}
+
+	return old_head;
+	
+
+}
+
 
 void find_info(Item *head, char *find_value)
 {
