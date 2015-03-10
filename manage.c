@@ -321,5 +321,4 @@ void help_info(void)
 	printf("		--Sort by name.\n");
 }
 
-giv
 
