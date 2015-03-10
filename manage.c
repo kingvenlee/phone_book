@@ -316,9 +316,10 @@ void help_info(void)
 	printf("	find ");
 	printf("		--Find a member from the book and show it.\n\n");
 	printf("	show ");
-	printf("		--Show all members of the book.\n");
+	printf("		--Show all members of the book.\n\n");
 	printf("	sort ");
 	printf("		--Sort by name.\n");
 }
 
+giv
 
