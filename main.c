@@ -17,37 +17,38 @@ int main(char argc, char **argv)
 		printf("Error: too many argcs.\n\n");
 		help_info();
 		return;
-	}
-	if (1 == argc) {
+	} else if (1 == argc) {
 		help_info();
 		return;
 	}
 	
 	int result = 0;
-	if (0 == memcmp(argv[1],"add",3))
+	if (0 == strcmp(argv[1],"add"))
 		result = 1;
-	else if (0 == memcmp(argv[1],"del",4))
+	else if (0 == strcmp(argv[1],"delete"))
 		result = 2;
-	else if (0 == memcmp(argv[1],"find",4))
+	else if (0 == strcmp(argv[1],"find"))
 		result = 3;
-	else if (0 == memcmp(argv[1],"show",4))
+	else if (0 == strcmp(argv[1],"show"))
 		result = 4;
-	else if (0 == memcmp(argv[1],"sort",4))
+	else if (0 == strcmp(argv[1],"sort"))
 		result = 5;
 	
 	switch (result) {
-	case 0:break;
+	case 0:
+		help_info();
+		break;
 	case 1:
 		new_item = get_input();
 		head = read_to_mem(PHONE_BOOK);
 		head = add_to_list(head, new_item);
-		printf("new_item->name = %s\n", new_item->name);
-		printf("head->name = %s\n",head->name);
+		//printf("new_item->name = %s\n", new_item->name);
+		//printf("head->name = %s\n",head->name);
 		write_to_file(head, PHONE_BOOK);
 		free_all(head);
 		break;
 	case 2:
-		printf("Input the name or phonenum you want to delete:\n");
+		printf("Input the name or phone number you want to delete:\n");
 		scanf("%s",&del_value);
 		head = read_to_mem(PHONE_BOOK);
 		head = del_form_list(head, del_value);
@@ -74,6 +75,7 @@ int main(char argc, char **argv)
 		free_all(head);
 		break;
 	default:
+		help_info();
 		break;
 	}
 		

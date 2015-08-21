@@ -70,12 +70,12 @@ void find_info(Item *head, char *find_value)
 	int isfind = 0;
 	
 	if (NULL == head) {
-		printf("sorry! phone book is empty!\n");
+		printf("Phone book is empty!\n");
 		return;
 	}
 	
 	while (head != NULL) {
-		if (0 == strcmp(head->name, find_value) || 0 == strcmp(head->phone_num, find_value)) {
+		if ((0 == strcmp(head->name, find_value)) || (0 == strcmp(head->phone_num, find_value))) {
 			printf("------------------------------------------------------------------");
 			printf("\nname is:      %s\nphone_num is: %s\n", head->name, head->phone_num);
 			isfind = 1;
@@ -84,7 +84,7 @@ void find_info(Item *head, char *find_value)
 	}
 	
 	if (!isfind) {
-		printf("Sorry! can't find it.\n");
+		printf("Not exsit!\n");
 	}
 }
 
@@ -152,7 +152,7 @@ Item *read_to_mem(char *file_name)
 	FILE *fp;
 	char buf_name[NAME_LEN_MAX] = {0};
 	char buf_num[PHONE_NUM_LEN_MAX] = {0};
-	char ch;
+	int ch;
 	int len;
 	int file_size = 0;
 	Item *head = NULL;
@@ -306,19 +306,13 @@ void write_to_file(Item *head, char *file)
 }
 void help_info(void)
 {
-	printf("usage: book [options]\n");
 	printf("Valid options are:\n");
-	printf("");
-	printf("	add ");
-	printf("		--Add a member to the book.\n\n");
-	printf("	del ");
-	printf("		--Delete a member from the book.\n\n");
-	printf("	find ");
-	printf("		--Find a member from the book and show it.\n\n");
-	printf("	show ");
-	printf("		--Show all members of the book.\n\n");
-	printf("	sort ");
-	printf("		--Sort by name.\n");
+	printf("	add	Add a member to the book.\n");
+	printf("	delete 	Delete a member from the book.\n");
+	printf("	find 	Find a member from the book and show it.\n");
+	printf("	show 	Show all members of the book.\n");
+	printf("	sort 	Sort by name.\n");
+	printf("\n");
 }
 
 
