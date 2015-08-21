@@ -75,7 +75,12 @@ void find_info(Item *head, char *find_value)
 	}
 	
 	while (head != NULL) {
-		if ((0 == strcmp(head->name, find_value)) || (0 == strcmp(head->phone_num, find_value))) {
+		
+		if (strstr((strlen(head->name) < strlen(find_value))?find_value:head->name,
+			(strlen(head->name) < strlen(find_value))?head->name:find_value) ||
+			strstr((strlen(head->phone_num) < strlen(find_value))?find_value:head->phone_num,
+			(strlen(head->phone_num) < strlen(find_value))?head->phone_num:find_value)) {
+			
 			printf("------------------------------------------------------------------");
 			printf("\nname is:      %s\nphone_num is: %s\n", head->name, head->phone_num);
 			isfind = 1;
@@ -84,7 +89,7 @@ void find_info(Item *head, char *find_value)
 	}
 	
 	if (!isfind) {
-		printf("Not exsit!\n");
+		printf("Not exsit!!\n");
 	}
 }
 
